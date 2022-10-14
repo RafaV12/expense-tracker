@@ -1,0 +1,1 @@
+Simple expense tracker to practice Typescript + React.
