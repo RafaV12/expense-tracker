@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ErrorPage from './error-page';
 import './index.css';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Home from './routes/home/home';
+import ErrorPage from './routes/error/ErrorPage';
 
 const router = createBrowserRouter([
   {

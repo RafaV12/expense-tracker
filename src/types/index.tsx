@@ -1,6 +1,7 @@
 export type Tx = {
   id: number;
+  type: string;
   description: string;
-  date: object;
+  date: string;
   amount: number;
 };

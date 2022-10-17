@@ -1,17 +1,32 @@
+import { useState } from 'react';
+
 import Balance from './components/Balance';
 import BalanceHistory from './components/BalanceHistory';
-import Button from '../../components/Button';
 import Transactions from './components/Transactions';
+import AddTxForm from './components/AddTxForm';
+import Button from '../../components/Button';
 
 const Home = () => {
+  const [showAddTxForm, setShowAddTxForm] = useState(false);
+
+  function displayAddTxForm(): void {
+    setShowAddTxForm(!showAddTxForm);
+  }
+
+  function hideAddTxForm(): void {
+    setShowAddTxForm(false);
+  }
+
   return (
-    <div className="px-4 py-12 min-h-screen bg-black">
+    <div className="relative px-4 py-12 min-h-screen bg-black">
       <Balance />
+
+      {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}
 
       {/* CTA buttons  */}
       <div className="mb-8 w-full flex items-center justify-between">
-        <Button text="Add income" arrowDirection="down" />
-        <Button text="Add expense" arrowDirection="up" />
+        <Button text="Add income" operation="income" action={displayAddTxForm} />
+        <Button text="Add expense" operation="expense" action={displayAddTxForm} />
       </div>
 
       <BalanceHistory />

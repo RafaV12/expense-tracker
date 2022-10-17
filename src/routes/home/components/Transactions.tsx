@@ -1,34 +1,27 @@
-import Transaction from './Transaction';
-import { Tx } from '../../../types';
+import txsData from '../../../txsData';
 
-const transactionsData: Tx[] = [
-  {
-    id: 1,
-    description: 'Electricity Bill',
-    date: new Date(),
-    amount: 100.0,
-  },
-  {
-    id: 2,
-    description: 'Electricity Bill',
-    date: new Date(),
-    amount: 100.0,
-  },
-  {
-    id: 3,
-    description: 'Electricity Bill',
-    date: new Date(),
-    amount: 100.0,
-  },
-];
+import Transaction from './Transaction';
+import EditIcon from '../../../components/Icons/EditIcon';
 
 const Transactions = () => {
   return (
-    <div className="w-full">
-      <p className="mb-1 text-zinc-200 text-lg">January</p>
-      {transactionsData.map((tx) => (
-        <Transaction key={tx.id} description={tx.description} date={tx.date} amount={tx.amount} />
-      ))}
+    <div className="w-full flex flex-col">
+      <div className="mb-1 flex items-center justify-between">
+        <p className="text-zinc-200 text-lg">January</p>
+
+        <div className="mt-0.5 flex items-center text-zinc-200 text-sm">
+          <EditIcon />
+          <p className="ml-2">Init. Balance: $2000</p>
+        </div>
+      </div>
+
+      <div className="px-2 max-h-[36rem] overflow-y-auto">
+        {txsData.map((tx) => (
+          <Transaction key={tx.id} description={tx.description} date={tx.date} amount={tx.amount} />
+        ))}
+      </div>
+
+      <p className="mt-4 self-end text-zinc-200 text-sm">Final Balance: $1000</p>
     </div>
   );
 };
