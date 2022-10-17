@@ -16,7 +16,6 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
   });
 
   const handleChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>): void => {
-    console.log(e.currentTarget.value);
     setTxValues({
       ...txValues,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -38,7 +37,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
         className="fixed top-24 left-1/2 transform -translate-x-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-10"
       >
         {/* Type of TX selection */}
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col">
           <label className="text-zinc-200" htmlFor="">
             Type of Transaction:
           </label>
@@ -52,7 +51,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
         </div>
 
         {/* Date input */}
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col">
           <label className="text-zinc-200" htmlFor="">
             Date
           </label>
@@ -66,7 +65,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
         </div>
 
         {/* Description of TX input */}
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col">
           <label className="text-zinc-200" htmlFor="">
             Description
           </label>
@@ -81,7 +80,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
         </div>
 
         {/* Amount of TX */}
-        <div className="mb-8">
+        <div className="mb-8 flex flex-col">
           <label className="text-zinc-200" htmlFor="">
             Amount
           </label>

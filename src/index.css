@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: linear-gradient(360deg, rgb(46, 29, 75) 0%, rgb(34, 16, 60) 0%, rgb(0, 0, 0) 98.6%);
+}
+
