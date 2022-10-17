@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div className="h-screen">
-      <header className="px-4 py-2 absolute top-0 container flex items-center justify-between">
+      <header className="p-4 absolute top-0 container flex items-center justify-between">
         <img className="w-8 h-9" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Parallel_Finance_logo.png" alt="" />
         <nav className="text-white">
           {/* <NavLink to="/dashboard">

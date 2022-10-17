@@ -20,8 +20,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="relative px-4 py-14 min-h-screen bg-black">
-      <header className="absolute left-0 top-0 px-4 py-2 container">
+    <div className="relative px-4 py-16 min-h-screen bg-black">
+      <header className="absolute left-0 top-0 p-4 container">
         {/* Logo */}
         <Link to={'/'}>
           <img className="w-8 h-9" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Parallel_Finance_logo.png" alt="" />
