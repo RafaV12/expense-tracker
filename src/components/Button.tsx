@@ -1,17 +1,23 @@
 import React from 'react';
 import ArrowDownIcon from './Icons/ArrowDownIcon';
 import ArrowUpIcon from './Icons/ArrowUpIcon';
+import PlusIcon from './Icons/PlusIcon';
 
 type ButtonProps = {
   text: string;
-  operation: string;
+  textColor: string;
+  bgColor: string;
+  icon: string;
   action: () => void;
 };
 
-const Button = ({ text, operation, action }: ButtonProps) => {
+const Button = ({ text, textColor, bgColor, icon, action }: ButtonProps) => {
   return (
-    <button onClick={action} className="px-4 py-1.5 w-[48%] flex items-center justify-center bg-zinc-700 rounded-2xl text-slate-100">
-      {operation === 'expense' ? <ArrowUpIcon /> : <ArrowDownIcon />}
+    <button
+      onClick={action}
+      className={`px-4 py-1.5 flex items-center justify-center ${bgColor} rounded-2xl ${textColor}`}
+    >
+      {icon === 'plus' && <PlusIcon />}
       <span className="ml-1.5">{text}</span>
     </button>
   );

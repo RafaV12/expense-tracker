@@ -3,8 +3,8 @@ import { NavLink, Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="h-screen">
-      <header className="p-4 absolute top-0 container flex items-center justify-between">
+    <div className="h-screen flex flex-col items-center">
+      <header className="p-4 absolute top-0 w-full flex items-center justify-between 2xl:container">
         <img className="w-8 h-9" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Parallel_Finance_logo.png" alt="" />
         <nav className="text-white">
           {/* <NavLink to="/dashboard">
@@ -21,7 +21,7 @@ const Home = () => {
 
       {/* Landing */}
       <main className="h-screen container flex flex-col items-center justify-center">
-        <div className="-mt-28 w-3/4 flex flex-col items-center text-center">
+        <div className="w-3/4 flex flex-col items-center text-center lg:-mt-10">
           <h1 className="mb-4 text-white font-bold text-4xl">
             Your everyday <span className="text-purple-600">budget watcher</span>
           </h1>

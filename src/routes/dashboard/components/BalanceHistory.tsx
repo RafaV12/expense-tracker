@@ -1,9 +1,9 @@
 const BalanceHistory = () => {
   return (
-    <div className="mb-6">
+    <div className="mt-6 mb-6 w-full">
       <p className="mb-2 text-white">Balance History</p>
       {/* Chart */}
-      <img className="mb-4 h-48" src="https://www.pngall.com/wp-content/uploads/10/Line-Chart-Vector-PNG-Cutout.png" alt="" />
+      <img className="mb-4 w-11/12 h-48" src="https://www.pngall.com/wp-content/uploads/10/Line-Chart-Vector-PNG-Cutout.png" alt="" />
       {/* Month Selection */}
       <div className="pb-4 pt-2 w-full overflow-x-auto text-zinc-400 border-t-2 border-zinc-800">
         <ul className="w-full flex items-center">

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { FormValues } from '../../types';
+
 const Register = () => {
-  const [userValues, setUserValues] = useState({
+  const [userValues, setUserValues] = useState<FormValues>({
     username: '',
     password: '',
     repeatPassword: '',
@@ -22,7 +24,7 @@ const Register = () => {
 
   return (
     <div className="px-4 py-16 min-h-screen flex items-center justify-center">
-      <form onSubmit={onSubmit} className="px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-10">
+      <form onSubmit={onSubmit} className="px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-10 md:w-2/4 lg:w-2/6 xl:w-1/4">
         {/* Username */}
         <div className="mb-4 flex flex-col">
           <label htmlFor="name" className="text-zinc-200">

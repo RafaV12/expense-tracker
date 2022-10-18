@@ -31,10 +31,10 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
   return (
     <>
       {/* Form mask */}
-      <div onClick={closeForm} className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-20"></div>
+      <div onClick={closeForm} className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-30"></div>
       <form
         onSubmit={onSubmit}
-        className="fixed top-24 left-1/2 transform -translate-x-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-10"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-10 md:w-2/4 lg:w-2/6 xl:w-1/4"
       >
         {/* Type of TX selection */}
         <div className="mb-4 flex flex-col">

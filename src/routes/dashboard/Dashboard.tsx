@@ -20,7 +20,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="relative px-4 py-16 min-h-screen bg-black">
+    <div className="relative px-4 py-16 min-h-screen flex flex-col items-center bg-black md:px-14 lg:justify-center">
       <header className="absolute left-0 top-0 p-4 container">
         {/* Logo */}
         <Link to={'/'}>
@@ -28,19 +28,22 @@ const Dashboard = () => {
         </Link>
       </header>
 
-      <Balance />
+      <main className="container flex flex-col items-center lg:flex-row lg:justify-between xl:px-14">
+        {/* First column */}
+        <div className="w-full flex flex-col items-center md:w-3/4 lg:w-2/4 xl:w-5/12">
+          <Balance />
+
+          {/* Add TX button  */}
+          <Button icon="plus" text="Add transaction" textColor="text-slate-100" bgColor="bg-zinc-700" action={displayAddTxForm} />
+
+          <BalanceHistory />
+        </div>
+
+        {/* Second column */}
+        <Transactions />
+      </main>
 
       {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}
-
-      {/* CTA buttons  */}
-      <div className="mb-8 w-full flex items-center justify-between">
-        <Button text="Add income" operation="income" action={displayAddTxForm} />
-        <Button text="Add expense" operation="expense" action={displayAddTxForm} />
-      </div>
-
-      <BalanceHistory />
-
-      <Transactions />
     </div>
   );
 };

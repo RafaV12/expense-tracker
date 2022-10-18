@@ -5,3 +5,9 @@ export type Tx = {
   date: string;
   amount: number;
 };
+
+export type FormValues = {
+  username: string;
+  password: string;
+  repeatPassword?: string;
+};
