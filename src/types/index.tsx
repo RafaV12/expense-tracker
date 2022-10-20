@@ -11,3 +11,8 @@ export type FormValues = {
   password: string;
   repeatPassword?: string;
 };
+
+export interface UserContextInterface {
+  id: string;
+  token: string;
+}

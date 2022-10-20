@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import Balance from './components/Balance';
 import BalanceHistory from './components/BalanceHistory';
 import Transactions from './components/Transactions';
@@ -21,13 +19,6 @@ const Dashboard = () => {
 
   return (
     <div className="relative px-4 py-16 min-h-screen flex flex-col items-center bg-black md:px-14 lg:justify-center">
-      <header className="absolute left-0 top-0 p-4 container">
-        {/* Logo */}
-        <Link to={'/'}>
-          <img className="w-8 h-9" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Parallel_Finance_logo.png" alt="" />
-        </Link>
-      </header>
-
       <main className="container flex flex-col items-center lg:flex-row lg:justify-between xl:px-14">
         {/* First column */}
         <div className="w-full flex flex-col items-center md:w-3/4 lg:w-2/4 xl:w-5/12">
