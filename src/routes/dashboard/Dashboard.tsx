@@ -1,13 +1,30 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+import { Tx } from '../../types';
+import { Month } from '../../types';
 
 import Balance from './components/Balance';
+import Button from '../../components/Button';
 import BalanceHistory from './components/BalanceHistory';
+import MonthSelection from './components/MonthSelection';
 import Transactions from './components/Transactions';
 import AddTxForm from './components/AddTxForm';
-import Button from '../../components/Button';
 
 const Dashboard = () => {
   const [showAddTxForm, setShowAddTxForm] = useState(false);
+  const [transactions, setTransactions] = useState<Tx[]>([]);
+  const [month, setMonth] = useState<Month>({
+    name: 'January',
+    number: 1,
+  });
+
+  const addTx = (txValues: Tx) => {
+    // Check if Tx's property 'type' is income or expense, if it's an expense, change amount to negative
+    if (txValues.type === 'Expense') {
+      txValues.amount *= -1;
+    }
+    setTransactions([...transactions, txValues]);
+  };
 
   function displayAddTxForm(): void {
     setShowAddTxForm(!showAddTxForm);
@@ -28,13 +45,15 @@ const Dashboard = () => {
           <Button icon="plus" text="Add transaction" textColor="text-slate-100" bgColor="bg-zinc-700" action={displayAddTxForm} />
 
           <BalanceHistory />
+
+          <MonthSelection setMonth={setMonth} />
         </div>
 
         {/* Second column */}
-        <Transactions />
+        <Transactions month={month} transactions={transactions} />
       </main>
 
-      {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}
+      {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} addTx={addTx} />}
     </div>
   );
 };

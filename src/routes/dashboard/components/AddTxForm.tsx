@@ -4,11 +4,11 @@ import { Tx } from '../../../types';
 
 type AddTxFormProps = {
   closeForm: () => void;
+  addTx: (txValues: Tx) => void;
 };
 
-const AddTxForm = ({ closeForm }: AddTxFormProps) => {
+const AddTxForm = ({ closeForm, addTx }: AddTxFormProps) => {
   const [txValues, setTxValues] = useState<Tx>({
-    id: 0,
     type: '',
     description: '',
     date: '',
@@ -24,9 +24,15 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    addTx(txValues);
+    setTxValues({
+      type: '',
+      description: '',
+      date: '',
+      amount: 0,
+    });
+    closeForm();
   };
-
-  //   const addTx = () => {};
 
   return (
     <>
@@ -41,8 +47,15 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
           <label className="text-zinc-200" htmlFor="">
             Type of Transaction:
           </label>
-          <select onChange={handleChange} value={txValues.type} className="px-2 py-2 mt-2 w-full rounded-md outline-none" name="type" id="">
-            <option hidden value="default">
+          <select
+            onChange={handleChange}
+            value={txValues.type}
+            className="px-2 py-2 mt-2 w-full text-black rounded-md outline-none"
+            name="type"
+            id=""
+            required
+          >
+            <option hidden value="">
               Select type
             </option>
             <option value="Income">Income</option>
@@ -58,9 +71,10 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
           <input
             onChange={handleChange}
             value={txValues.date}
-            className="px-2 py-2 mt-2 w-full rounded-md outline-none"
+            className="px-2 py-2 mt-2 w-full text-black rounded-md outline-none"
             type="date"
             name="date"
+            required
           ></input>
         </div>
 
@@ -73,9 +87,10 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             onChange={handleChange}
             value={txValues.description}
             placeholder="Enter description"
-            className="pl-2 py-2 mt-2 w-full rounded-md outline-none"
+            className="pl-2 py-2 mt-2 w-full text-black rounded-md outline-none"
             type="text"
             name="description"
+            required
           />
         </div>
 
@@ -88,10 +103,11 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             onChange={handleChange}
             value={txValues.amount}
             placeholder="Enter amount"
-            className="pl-2 py-2 mt-2 w-full rounded-md outline-none"
+            className="pl-2 py-2 mt-2 w-full text-black rounded-md outline-none"
             type="number"
             name="amount"
             id=""
+            required
           />
         </div>
 
