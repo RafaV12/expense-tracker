@@ -12,7 +12,7 @@ export type FormValues = {
   repeatPassword?: string;
 };
 
-export interface UserContextInterface {
+export interface IUser {
   id: string;
   token: string;
 }

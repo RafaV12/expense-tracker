@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
+import { AppContextProvider } from './context/AppContext';
+
 import Header from './components/Header';
 import Dashboard from './routes/dashboard/Dashboard';
 import Home from './routes/home/Home';
@@ -8,6 +10,7 @@ import Register from './routes/register/Register';
 
 const App = () => {
   return (
+    <AppContextProvider>
       <div className="min-h-screen bg-black text-white">
         <Header />
         <Routes>
@@ -25,6 +28,7 @@ const App = () => {
           />
         </Routes>
       </div>
+    </AppContextProvider>
   );
 };
 
