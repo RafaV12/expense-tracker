@@ -1,4 +1,6 @@
 export type Tx = {
+  _id: string;
+  userId: string;
   type: string;
   description: string;
   date: string;
@@ -12,7 +14,7 @@ export type FormValues = {
 };
 
 export interface IUser {
-  id: string;
+  userId: string;
   token: string;
 }
 

@@ -70,7 +70,7 @@ const MonthSelection = ({ setMonth }: MonthSelectionProps) => {
                 number: month.number,
               })
             }
-            className="px-3 py-0.5 mr-3.5 bg-zinc-700 text-white rounded-xl text-sm cursor-pointer"
+            className="px-3 py-0.5 mr-3.5 bg-zinc-700 text-white rounded-xl text-sm cursor-pointer transition duration-150 ease-in-out hover:bg-zinc-800 hover:text-zinc-300"
           >
             {month.name}
           </li>

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { FormValues } from '../types/index';
+import { Tx } from '../types/index';
 import { IUser } from '../types/index';
 
 type AppContextProps = {
@@ -8,17 +9,21 @@ type AppContextProps = {
 };
 
 type Context = {
-  user?: IUser;
+  user: IUser | null;
+  transactions: Tx[];
   loading: boolean;
   error: string | boolean;
   loginUser: (userValues: FormValues) => void;
   registerUser: (userValues: FormValues) => void;
+  getAllTxs: () => void;
+  createTx: (txValues: Tx) => void;
 };
 
 const AppContext = createContext<Context | null>(null);
 
 export const AppContextProvider = ({ children }: AppContextProps) => {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState<IUser | null>(null);
+  const [transactions, setTransactions] = useState<Tx[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -70,12 +75,67 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
         const text = await response.text();
         throw Error(text);
       }
-      setLoading(false);
       const data = await response.json();
+      setLoading(false);
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
     } catch (error: any) {
       setLoading(false);
+      // Destructure error message from API response
+      let { message } = JSON.parse(error.message);
+      setError(message);
+    }
+  };
+
+  const createTx = async (txValues: Tx) => {
+    // Check if Tx's property 'type' is income or expense, if it's an expense, change amount to negative
+    if (txValues.type === 'Expense') {
+      txValues.amount *= -1;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:3000/v1/user/create-tx', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(txValues),
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        throw Error(text);
+      }
+      const allTransactions = await response.json();
+      setLoading(false);
+      setTransactions([...allTransactions]);
+    } catch (error: any) {
+      // Destructure error message from API response
+      let { message } = JSON.parse(error.message);
+      setError(message);
+    }
+  };
+
+  const getAllTxs = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:3000/v1/user/get-transactions', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: user!.userId }),
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        throw Error(text);
+      }
+      const allTransactions = await response.json();
+      setLoading(false);
+      setTransactions(allTransactions);
+    } catch (error: any) {
       // Destructure error message from API response
       let { message } = JSON.parse(error.message);
       setError(message);
@@ -93,7 +153,11 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     }
   };
 
-  return <AppContext.Provider value={{ user, loading, error, loginUser, registerUser }}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={{ user, transactions, loading, error, loginUser, registerUser, createTx, getAllTxs }}>
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 export const useAppContext = () => {

@@ -12,19 +12,10 @@ import AddTxForm from './components/AddTxForm';
 
 const Dashboard = () => {
   const [showAddTxForm, setShowAddTxForm] = useState(false);
-  const [transactions, setTransactions] = useState<Tx[]>([]);
   const [month, setMonth] = useState<Month>({
     name: 'January',
     number: 1,
   });
-
-  const addTx = (txValues: Tx) => {
-    // Check if Tx's property 'type' is income or expense, if it's an expense, change amount to negative
-    if (txValues.type === 'Expense') {
-      txValues.amount *= -1;
-    }
-    setTransactions([...transactions, txValues]);
-  };
 
   function displayAddTxForm(): void {
     setShowAddTxForm(!showAddTxForm);
@@ -50,10 +41,10 @@ const Dashboard = () => {
         </div>
 
         {/* Second column */}
-        <Transactions month={month} transactions={transactions} />
+        <Transactions month={month} />
       </main>
 
-      {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} addTx={addTx} />}
+      {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}
     </div>
   );
 };

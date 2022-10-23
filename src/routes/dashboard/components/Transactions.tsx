@@ -1,19 +1,23 @@
-import React from 'react';
-
-import { Tx } from '../../../types';
+import React, { useEffect } from 'react';
 
 import Transaction from './Transaction';
 import EditIcon from '../../../components/Icons/EditIcon';
+import { useAppContext } from '../../../context/AppContext';
 
 type TransactionsProps = {
-  transactions: Tx[];
   month: {
     name: string;
     number: number;
   };
 };
 
-const Transactions = ({ transactions, month }: TransactionsProps) => {
+const Transactions = ({ month }: TransactionsProps) => {
+  const { transactions, getAllTxs } = useAppContext();
+
+  useEffect(() => {
+    getAllTxs();
+  }, []);
+
   return (
     <div className="w-full flex flex-col md:w-3/4 lg:w-2/5">
       <div className="mb-1 flex items-center justify-between">
@@ -34,7 +38,7 @@ const Transactions = ({ transactions, month }: TransactionsProps) => {
           {transactions.length > 0 ? (
             transactions
               .filter((tx) => +tx.date.slice(5, 7) === month.number)
-              .map((tx) => <Transaction description={tx.description} date={tx.date} amount={tx.amount} />)
+              .map((tx) => <Transaction key={tx._id} description={tx.description} date={tx.date} amount={tx.amount} />)
           ) : (
             <p className="mt-4 text-zinc-200">There are no transactions yet!</p>
           )}

@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 
 import { Tx } from '../../../types';
 
+import { useAppContext } from '../../../context/AppContext';
+
 type AddTxFormProps = {
   closeForm: () => void;
-  addTx: (txValues: Tx) => void;
 };
 
-const AddTxForm = ({ closeForm, addTx }: AddTxFormProps) => {
+const AddTxForm = ({ closeForm }: AddTxFormProps) => {
+  const { user, createTx } = useAppContext();
+
   const [txValues, setTxValues] = useState<Tx>({
+    _id: '',
+    userId: user!.userId,
     type: '',
-    description: '',
     date: '',
+    description: '',
     amount: 0,
   });
 
@@ -24,11 +29,13 @@ const AddTxForm = ({ closeForm, addTx }: AddTxFormProps) => {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    addTx(txValues);
+    createTx(txValues);
     setTxValues({
+      _id: '',
+      userId: user!.userId,
       type: '',
-      description: '',
       date: '',
+      description: '',
       amount: 0,
     });
     closeForm();

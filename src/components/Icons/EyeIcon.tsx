@@ -16,7 +16,7 @@ const EyeIcon = ({ showBalance }: EyeIconProps) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="feather feather-eye cursor-pointer"
+      className="feather feather-eye cursor-pointer transition duration-150 ease-in-out hover:text-zinc-400"
       onClick={showBalance}
     >
       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
