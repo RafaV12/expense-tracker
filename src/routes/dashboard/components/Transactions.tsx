@@ -9,11 +9,19 @@ type TransactionsProps = {
 };
 
 const Transactions = ({ month }: TransactionsProps) => {
-  const { transactions, getAllTxs } = useAppContext();
+  const { transactions, getAllTxs, loading, error } = useAppContext();
 
   useEffect(() => {
     getAllTxs();
   }, []);
+
+  if (error) {
+    return <>Error...</>;
+  }
+
+  if (loading) {
+    return <>Loading...</>;
+  }
 
   return (
     <div className="w-full flex flex-col md:w-3/4 lg:w-2/5">

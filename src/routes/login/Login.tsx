@@ -6,7 +6,7 @@ import { FormValues } from '../../types';
 import { useAppContext } from '../../context/AppContext';
 
 const Login = () => {
-  const appContext = useAppContext();
+  const { user, loginUser, error, loading } = useAppContext();
   const [userValues, setUserValues] = useState<FormValues>({
     username: '',
     password: '',
@@ -21,7 +21,7 @@ const Login = () => {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    appContext.loginUser(userValues);
+    loginUser(userValues);
     setUserValues({
       username: '',
       password: '',
@@ -31,14 +31,14 @@ const Login = () => {
   return (
     <div className="px-4 py-16 min-h-screen flex items-center justify-center">
       {/* Redirect if user is logged in */}
-      {appContext.user && <Navigate to="/dashboard" replace={true} />}
+      {user && <Navigate to="/dashboard" replace={true} />}
       {/* Form submit error msg */}
-      {appContext.error && (
+      {error && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-20">
-          {appContext.error}
+          {error}
         </div>
       )}
-      
+
       <form onSubmit={onSubmit} className="px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-10 md:w-2/4 lg:w-2/6 xl:w-1/4">
         {/* Username */}
         <div className="mb-4 flex flex-col">
@@ -72,8 +72,8 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" disabled={appContext.loading ? true : false} className="px-4 py-2 text-white bg-purple-600 rounded-2xl">
-          {appContext.loading ? `Fetching user...` : 'Login'}
+        <button type="submit" disabled={loading ? true : false} className="px-4 py-2 text-white bg-purple-600 rounded-2xl">
+          {loading ? `Fetching user...` : 'Login'}
         </button>
 
         <p className="mt-7 text-slate-100">

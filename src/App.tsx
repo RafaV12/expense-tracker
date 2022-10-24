@@ -13,7 +13,7 @@ import Register from './routes/register/Register';
 const App = () => {
   return (
     <AppContextProvider>
-      <div className="min-h-screen bg-black text-white">
+      <div className="min-h-screen">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

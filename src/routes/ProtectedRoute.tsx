@@ -8,6 +8,7 @@ export type ProtectedRouteProps = {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user } = useAppContext();
+
   return user ? <>{children}</> : <Navigate to="/login" />;
 };
 

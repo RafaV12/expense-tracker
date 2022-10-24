@@ -13,6 +13,7 @@ type Context = {
   transactions: Tx[];
   loading: boolean;
   error: string | boolean;
+  successMsg: boolean;
   loginUser: (userValues: FormValues) => void;
   registerUser: (userValues: FormValues) => void;
   getAllTxs: () => void;
@@ -26,12 +27,17 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   const [transactions, setTransactions] = useState<Tx[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
 
   useEffect(() => {
+    // Close error/success message after 2 seconds
     if (error) {
       setTimeout(() => setError(false), 2000);
     }
-  }, [error]);
+    if (successMsg) {
+      setTimeout(() => setSuccessMsg(false), 2000);
+    }
+  }, [error, successMsg]);
 
   const loginUser = async (userValues: FormValues) => {
     setLoading(true);
@@ -114,6 +120,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       }
       getAllTxs();
       setLoading(false);
+      setSuccessMsg(true);
     } catch (error: any) {
       // Destructure error message from API response
       let { message } = JSON.parse(error.message);
@@ -158,7 +165,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   };
 
   return (
-    <AppContext.Provider value={{ user, transactions, loading, error, loginUser, registerUser, createTx, getAllTxs }}>
+    <AppContext.Provider value={{ user, transactions, loading, error, successMsg, loginUser, registerUser, createTx, getAllTxs }}>
       {children}
     </AppContext.Provider>
   );

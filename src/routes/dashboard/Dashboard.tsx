@@ -20,7 +20,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="relative px-4 py-16 min-h-screen flex flex-col items-center bg-black md:px-14 lg:justify-center">
+    <div className="relative px-4 pt-[4.3rem] pb-8 min-h-screen flex flex-col items-center md:px-14 lg:pt-20">
       <main className="container flex flex-col items-center lg:flex-row lg:justify-between xl:px-14">
         {/* First column */}
         <div className="w-full flex flex-col items-center md:w-3/4 lg:w-2/4 xl:w-5/12">
