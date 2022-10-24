@@ -5,10 +5,7 @@ import EditIcon from '../../../components/Icons/EditIcon';
 import { useAppContext } from '../../../context/AppContext';
 
 type TransactionsProps = {
-  month: {
-    name: string;
-    number: number;
-  };
+  month: string;
 };
 
 const Transactions = ({ month }: TransactionsProps) => {
@@ -21,7 +18,7 @@ const Transactions = ({ month }: TransactionsProps) => {
   return (
     <div className="w-full flex flex-col md:w-3/4 lg:w-2/5">
       <div className="mb-1 flex items-center justify-between">
-        <p className="text-zinc-200 text-lg">{month.name}</p>
+        <p className="text-zinc-200 text-lg">{month}</p>
 
         <div className="mt-0.5 flex items-center text-zinc-200 text-sm">
           <EditIcon />
@@ -33,11 +30,11 @@ const Transactions = ({ month }: TransactionsProps) => {
         <ul>
           {/*
            Filter the transactions depending on the month selected.
-           We slice the date to get the month number (yy-MM-dd)
+           We slice the date to get the month name (e.g: Oct, Nov, Dec)
           */}
           {transactions.length > 0 ? (
             transactions
-              .filter((tx) => +tx.date.slice(5, 7) === month.number)
+              .filter((tx) => tx.date.slice(4, 7) === month.slice(0, 3))
               .map((tx) => <Transaction key={tx._id} description={tx.description} date={tx.date} amount={tx.amount} />)
           ) : (
             <p className="mt-4 text-zinc-200">There are no transactions yet!</p>

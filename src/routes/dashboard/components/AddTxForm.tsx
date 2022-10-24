@@ -9,11 +9,10 @@ type AddTxFormProps = {
 };
 
 const AddTxForm = ({ closeForm }: AddTxFormProps) => {
-  const { user, createTx } = useAppContext();
+  const { createTx } = useAppContext();
 
   const [txValues, setTxValues] = useState<Tx>({
     _id: '',
-    userId: user!.userId,
     type: '',
     date: '',
     description: '',
@@ -32,7 +31,6 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
     createTx(txValues);
     setTxValues({
       _id: '',
-      userId: user!.userId,
       type: '',
       date: '',
       description: '',

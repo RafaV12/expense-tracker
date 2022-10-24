@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-import { Tx } from '../../types';
-import { Month } from '../../types';
-
 import Balance from './components/Balance';
 import Button from '../../components/Button';
 import BalanceHistory from './components/BalanceHistory';
@@ -12,10 +9,7 @@ import AddTxForm from './components/AddTxForm';
 
 const Dashboard = () => {
   const [showAddTxForm, setShowAddTxForm] = useState(false);
-  const [month, setMonth] = useState<Month>({
-    name: 'January',
-    number: 1,
-  });
+  const [month, setMonth] = useState('January');
 
   function displayAddTxForm(): void {
     setShowAddTxForm(!showAddTxForm);

@@ -93,6 +93,11 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       txValues.amount *= -1;
     }
 
+    const normalizedTx = {
+      ...txValues,
+      date: new Date(txValues.date).toDateString(),
+    };
+
     setLoading(true);
     try {
       const response = await fetch('http://localhost:3000/v1/user/create-tx', {
@@ -101,15 +106,14 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(txValues),
+        body: JSON.stringify(normalizedTx),
       });
       if (!response.ok) {
         const text = await response.text();
         throw Error(text);
       }
-      const allTransactions = await response.json();
+      getAllTxs();
       setLoading(false);
-      setTransactions([...allTransactions]);
     } catch (error: any) {
       // Destructure error message from API response
       let { message } = JSON.parse(error.message);
