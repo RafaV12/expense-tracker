@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 const Header = () => {
-  const appContext = useAppContext();
+  const { user, logout } = useAppContext();
 
   return (
     <header className="p-4 absolute top-0 w-full flex items-center justify-between 2xl:container z-10">
@@ -17,17 +17,25 @@ const Header = () => {
         >
           How to use
         </NavLink>
-        {appContext.user ? (
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              isActive
-                ? 'hidden'
-                : 'px-3 py-2 text-sm text-white bg-purple-600 rounded-md transition duration-150 ease-in-out hover:bg-purple-700 hover:text-zinc-200'
-            }
-          >
-            Dashboard
-          </NavLink>
+        {user ? (
+          <>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive
+                  ? 'hidden'
+                  : 'px-3 py-2 mr-3 text-sm text-white bg-purple-600 rounded-md transition duration-150 ease-in-out hover:bg-purple-700 hover:text-zinc-200'
+              }
+            >
+              Dashboard
+            </NavLink>
+            <button
+              onClick={logout}
+              className="px-4 py-2 mr-3 text-sm text-white bg-zinc-800 rounded-md transition duration-150 ease-in-out hover:text-zinc-200 hover:bg-zinc-900"
+            >
+              Log out
+            </button>
+          </>
         ) : (
           <>
             <NavLink

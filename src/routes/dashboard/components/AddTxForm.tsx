@@ -19,7 +19,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
     amount: 0,
   });
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>): void => {
+  const onChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>): void => {
     setTxValues({
       ...txValues,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -64,7 +64,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             Type of Transaction:
           </label>
           <select
-            onChange={handleChange}
+            onChange={onChange}
             value={txValues.type}
             className="px-2 py-2 mt-2 w-full text-black rounded-md outline-none"
             name="type"
@@ -85,7 +85,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             Date
           </label>
           <input
-            onChange={handleChange}
+            onChange={onChange}
             value={txValues.date}
             className="px-2 py-2 mt-2 w-full text-black rounded-md outline-none"
             type="date"
@@ -100,7 +100,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             Description
           </label>
           <input
-            onChange={handleChange}
+            onChange={onChange}
             value={txValues.description}
             placeholder="Enter description"
             className="pl-2 py-2 mt-2 w-full text-black rounded-md outline-none"
@@ -116,7 +116,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             Amount
           </label>
           <input
-            onChange={handleChange}
+            onChange={onChange}
             value={txValues.amount}
             placeholder="Enter amount"
             className="pl-2 py-2 mt-2 w-full text-black rounded-md outline-none"

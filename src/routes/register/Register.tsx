@@ -13,7 +13,7 @@ const Register = () => {
     repeatPassword: '',
   });
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+  const onChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setUserValues({
       ...userValues,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -52,7 +52,7 @@ const Register = () => {
             placeholder="Enter your username"
             name="username"
             value={userValues.username}
-            onChange={handleChange}
+            onChange={onChange}
             className="pl-2 py-2 mt-2 w-full rounded-md outline-none text-black"
             minLength={6}
             required
@@ -71,7 +71,7 @@ const Register = () => {
             placeholder="Enter password"
             name="password"
             value={userValues.password}
-            onChange={handleChange}
+            onChange={onChange}
             required
             minLength={8}
           />
@@ -96,7 +96,7 @@ const Register = () => {
             placeholder="Repeat password"
             name="repeatPassword"
             value={userValues.repeatPassword}
-            onChange={handleChange}
+            onChange={onChange}
             required
             minLength={8}
           />

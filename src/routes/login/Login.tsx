@@ -12,7 +12,7 @@ const Login = () => {
     password: '',
   });
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+  const onChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setUserValues({
       ...userValues,
       [e.currentTarget.name]: e.currentTarget.value,
@@ -50,7 +50,7 @@ const Login = () => {
             placeholder="Enter your username"
             name="username"
             value={userValues.username}
-            onChange={handleChange}
+            onChange={onChange}
             className="pl-2 py-2 mt-2 w-full rounded-md outline-none text-black"
             required
           />
@@ -67,7 +67,7 @@ const Login = () => {
             placeholder="Enter password"
             name="password"
             value={userValues.password}
-            onChange={handleChange}
+            onChange={onChange}
             required
           />
         </div>

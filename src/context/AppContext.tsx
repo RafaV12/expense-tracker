@@ -12,9 +12,10 @@ type Context = {
   user: IUser | null | undefined;
   transactions: Tx[];
   loading: boolean;
-  error: string | boolean;
+  error: any;
   successMsg: boolean;
   loginUser: (userValues: FormValues) => void;
+  logout: () => void;
   registerUser: (userValues: FormValues) => void;
   getAllTxs: () => void;
   createTx: (txValues: Tx) => void;
@@ -154,6 +155,11 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     }
   };
 
+  const logout = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
+
   const persistUser = () => {
     const userJson = localStorage.getItem('user');
     if (userJson) {
@@ -168,7 +174,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ user, transactions, loading, error, successMsg, loginUser, registerUser, createTx, getAllTxs }}>
+    <AppContext.Provider value={{ user, transactions, loading, error, successMsg, loginUser, logout, registerUser, createTx, getAllTxs }}>
       {children}
     </AppContext.Provider>
   );
