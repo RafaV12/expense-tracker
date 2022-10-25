@@ -1,15 +1,19 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 export type ProtectedRouteProps = {
-  children: React.ReactNode;
+  redirectTo: string;
 };
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+function ProtectedRoute({ redirectTo }: ProtectedRouteProps) {
   const { user } = useAppContext();
 
-  return user ? <>{children}</> : <Navigate to="/login" />;
-};
+  if (user) {
+    return <Outlet />;
+  } else if (user === undefined) {
+    return <></>;
+  } else return <Navigate to={redirectTo} />;
+}
 
 export default ProtectedRoute;

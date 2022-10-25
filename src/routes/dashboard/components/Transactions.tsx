@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+
+import { useAppContext } from '../../../context/AppContext';
 
 import Transaction from './Transaction';
-import EditIcon from '../../../components/Icons/EditIcon';
-import { useAppContext } from '../../../context/AppContext';
+import Spinner from '../../../components/Spinner';
 
 type TransactionsProps = {
   month: string;
@@ -20,7 +21,7 @@ const Transactions = ({ month }: TransactionsProps) => {
   }
 
   if (loading) {
-    return <>Loading...</>;
+    return <Spinner/>;
   }
 
   return (
@@ -28,10 +29,7 @@ const Transactions = ({ month }: TransactionsProps) => {
       <div className="mb-1 flex items-center justify-between">
         <p className="text-zinc-200 text-lg">{month}</p>
 
-        <div className="mt-0.5 flex items-center text-zinc-200 text-sm">
-          <EditIcon />
-          <p className="ml-2">Init. Balance: $2000</p>
-        </div>
+        <p className="mt-0.5 flex items-center text-zinc-200 text-sm">{month} Init. Balance: $0</p>
       </div>
 
       <div className="px-1 min-h-[10rem] max-h-[36rem] overflow-y-auto lg:max-h-[30rem] lg:min-h-[30rem] ">
@@ -50,7 +48,9 @@ const Transactions = ({ month }: TransactionsProps) => {
         </ul>
       </div>
 
-      <p className="mt-4 self-end text-zinc-200 text-sm">Final Balance: $1000</p>
+      <p className="mt-4 self-end text-zinc-200 text-sm">
+        {month} Final Balance: ${}
+      </p>
     </div>
   );
 };

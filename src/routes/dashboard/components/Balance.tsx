@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useAppContext } from '../../../context/AppContext';
+import { Tx } from '../../../types';
 
 import EditIcon from '../../../components/Icons/EditIcon';
 import EyeOffIcon from '../../../components/Icons/EyeOffIcon';
 import EyeIcon from '../../../components/Icons/EyeIcon';
 
 const Balance = () => {
-  const [balance, setBalance] = useState(12000);
+  const { transactions } = useAppContext();
+  const [balance, setBalance] = useState(0);
   const [showBalance, setShowBalance] = useState(true);
+
+  const getBalance = (transactions: Tx[]) => {
+    // Sum all transactions to get the balance
+    let sum = 0;
+    if (transactions.length > 0) {
+      transactions.forEach((tx) => {
+        sum += tx.amount;
+      });
+    }
+    return sum;
+  };
+
+  useEffect(() => {
+    const balance = getBalance(transactions);
+    setBalance(balance);
+  }, [transactions]);
 
   function hideBalance(): void {
     setShowBalance(false);

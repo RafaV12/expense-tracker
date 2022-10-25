@@ -9,7 +9,7 @@ type AppContextProps = {
 };
 
 type Context = {
-  user: IUser | null;
+  user: IUser | null | undefined;
   transactions: Tx[];
   loading: boolean;
   error: string | boolean;
@@ -23,7 +23,8 @@ type Context = {
 const AppContext = createContext<Context | null>(null);
 
 export const AppContextProvider = ({ children }: AppContextProps) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  // User changes to either null (on auth failed) or IUser object (on auth success)
+  const [user, setUser] = useState<IUser | null | undefined>(undefined);
   const [transactions, setTransactions] = useState<Tx[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -153,16 +154,18 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     }
   };
 
-  useEffect(() => {
-    persistUser();
-  }, []);
-
   const persistUser = () => {
     const userJson = localStorage.getItem('user');
     if (userJson) {
       setUser(JSON.parse(userJson));
+    } else {
+      setUser(null);
     }
   };
+
+  useEffect(() => {
+    persistUser();
+  }, []);
 
   return (
     <AppContext.Provider value={{ user, transactions, loading, error, successMsg, loginUser, registerUser, createTx, getAllTxs }}>

@@ -11,7 +11,10 @@ const Header = () => {
         <img className="w-8 h-9" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Parallel_Finance_logo.png" alt="" />
       </Link>
       <nav className="text-white">
-        <NavLink to="/how-to-use" className="py-1.5 mr-4 border-b-2 border-zinc-300 text-white transition duration-150 ease-in-out hover:text-zinc-200 hover:border-zinc-400">
+        <NavLink
+          to="/how-to-use"
+          className="py-1.5 mr-4 border-b-2 border-zinc-300 text-white transition duration-150 ease-in-out hover:text-zinc-200 hover:border-zinc-400"
+        >
           How to use
         </NavLink>
         {appContext.user ? (
@@ -27,7 +30,10 @@ const Header = () => {
           </NavLink>
         ) : (
           <>
-            <NavLink to="/login" className="px-4 py-2 mr-3 text-sm text-white bg-zinc-800 rounded-md transition duration-150 ease-in-out hover:text-zinc-200 hover:bg-zinc-900">
+            <NavLink
+              to="/login"
+              className="px-4 py-2 mr-3 text-sm text-white bg-zinc-800 rounded-md transition duration-150 ease-in-out hover:text-zinc-200 hover:bg-zinc-900"
+            >
               Log in
             </NavLink>
             <NavLink
