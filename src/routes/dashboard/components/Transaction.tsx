@@ -1,9 +1,9 @@
 import React from 'react';
+import { Tx } from '../../../types';
 
 type TransactionProps = {
-  description: string;
-  date: string;
-  amount: number;
+  txData: Tx;
+  openForm: (txData: Tx) => void;
 };
 
 let dollarUS = Intl.NumberFormat('en-US', {
@@ -11,14 +11,14 @@ let dollarUS = Intl.NumberFormat('en-US', {
   currency: 'USD',
 });
 
-const Transaction = ({ description, date, amount }: TransactionProps) => {
+const Transaction = ({ openForm, txData }: TransactionProps) => {
   return (
-    <li className="py-2 flex items-center justify-between text-white border-b border-zinc-600">
+    <li onClick={() => openForm(txData)} className="py-2 flex items-center justify-between text-white border-b border-zinc-600">
       <div className="w-3/4 flex flex-col">
-        <p className="w-full">{description}</p>
-        <p className="w-full text-sm text-zinc-400">{date}</p>
+        <p className="w-full">{txData.description}</p>
+        <p className="w-full text-sm text-zinc-400">{txData.date}</p>
       </div>
-      <p className="w-1/4 text-end">{dollarUS.format(amount)}</p>
+      <p className="w-1/4 text-end">{dollarUS.format(txData.amount)}</p>
     </li>
   );
 };

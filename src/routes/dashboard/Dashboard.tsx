@@ -6,21 +6,31 @@ import BalanceHistory from './components/BalanceHistory';
 import MonthSelection from './components/MonthSelection';
 import Transactions from './components/Transactions';
 import AddTxForm from './components/AddTxForm';
+import EditTxForm from './components/EditTxForm';
+import { Tx } from '../../types';
 
 const Dashboard = () => {
   const [showAddTxForm, setShowAddTxForm] = useState(false);
+  const [showEditTxForm, setShowEditTxForm] = useState(false);
+  const [txToEdit, setTxToEdit] = useState<Tx>();
   const [month, setMonth] = useState('January');
 
-  function displayAddTxForm(): void {
+  const displayAddTxForm = (): void => {
     setShowAddTxForm(!showAddTxForm);
-  }
+  };
 
-  function hideAddTxForm(): void {
+  const hideAddTxForm = (): void => {
     setShowAddTxForm(false);
-  }
+  };
+
+  const openEditTxForm = (txData: Tx): void => {
+    // We want to get the txData to let the user know which transaction they are editing.
+    setTxToEdit(txData);
+    setShowEditTxForm(true);
+  };
 
   return (
-    <div className="relative px-4 pt-[4.3rem] pb-8 min-h-screen flex flex-col items-center md:px-14 lg:pt-20">
+    <div className="relative px-4 pt-[4.3rem] pb-8 min-h-screen flex flex-col items-center bg-black bg-opacity-60 md:px-14 lg:pt-20">
       <main className="container flex flex-col items-center lg:flex-row lg:justify-between xl:px-14">
         {/* First column */}
         <div className="w-full flex flex-col items-center md:w-3/4 lg:w-2/4 xl:w-5/12">
@@ -35,10 +45,11 @@ const Dashboard = () => {
         </div>
 
         {/* Second column */}
-        <Transactions month={month} />
+        <Transactions month={month} openForm={openEditTxForm} />
       </main>
 
       {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}
+      {showEditTxForm && <EditTxForm txData={txToEdit} closeForm={() => setShowEditTxForm(false)} />}
     </div>
   );
 };

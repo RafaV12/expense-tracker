@@ -17,8 +17,10 @@ type Context = {
   loginUser: (userValues: FormValues) => void;
   logout: () => void;
   registerUser: (userValues: FormValues) => void;
-  getAllTxs: () => void;
   createTx: (txValues: Tx) => void;
+  editTx: (txValues: Tx) => void;
+  deleteTx: (_id: Tx['_id']) => void;
+  getAllTxs: () => void;
 };
 
 const AppContext = createContext<Context | null>(null);
@@ -130,6 +132,43 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     }
   };
 
+  const editTx = async (txValues: Tx) => {
+    const normalizedTx = {
+      ...txValues,
+      date: new Date(txValues.date).toDateString(),
+    };
+
+    console.log(normalizedTx);
+
+    // setLoading(true);
+    // try {
+    //   const response = await fetch('http://localhost:3000/v1/user/edit-tx', {
+    //     method: 'POST',
+    //     mode: 'cors',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(normalizedTx),
+    //   });
+    //   if (!response.ok) {
+    //     const text = await response.text();
+    //     throw Error(text);
+    //   }
+    //   getAllTxs();
+    //   setLoading(false);
+    //   setSuccessMsg(true);
+    // } catch (error: any) {
+    //   Destructure error message from API response
+    //   let { message } = JSON.parse(error.message);
+    //   setError(message);
+    // }
+  };
+
+  const deleteTx = (_id: Tx['_id']) => {
+    console.log('delete Tx');
+    console.log(_id);
+  };
+
   const getAllTxs = async () => {
     setLoading(true);
     try {
@@ -174,7 +213,9 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ user, transactions, loading, error, successMsg, loginUser, logout, registerUser, createTx, getAllTxs }}>
+    <AppContext.Provider
+      value={{ user, transactions, loading, error, successMsg, loginUser, logout, registerUser, createTx, editTx, deleteTx, getAllTxs }}
+    >
       {children}
     </AppContext.Provider>
   );
