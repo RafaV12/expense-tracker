@@ -13,7 +13,7 @@ let dollarUS = Intl.NumberFormat('en-US', {
 
 const Transaction = ({ openForm, txData }: TransactionProps) => {
   return (
-    <li onClick={() => openForm(txData)} className="py-2 flex items-center justify-between text-white border-b border-zinc-600">
+    <li onClick={() => openForm(txData)} className="py-2 flex items-center justify-between text-white border-b border-zinc-600 cursor-pointer">
       <div className="w-3/4 flex flex-col">
         <p className="w-full">{txData.description}</p>
         <p className="w-full text-sm text-zinc-400">{txData.date}</p>

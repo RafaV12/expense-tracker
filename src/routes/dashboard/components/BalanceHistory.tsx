@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { ChartLine } from './ChartLine';
+
 const BalanceHistory = () => {
   return (
-    <div className="mt-6 w-full bg-black">
+    <div className="mt-6 w-full flex flex-col bg-black">
       <p className="mb-2 text-white">Balance History</p>
-      {/* Chart */}
-      <img className="mb-4 w-11/12 h-48" src="https://www.pngall.com/wp-content/uploads/10/Line-Chart-Vector-PNG-Cutout.png" alt="" />
+      <ChartLine />
     </div>
   );
 };
