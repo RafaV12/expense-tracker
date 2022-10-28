@@ -2,17 +2,16 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { FormValues } from '../types/index';
 import { Tx } from '../types/index';
-import { IUser } from '../types/index';
 
 type AppContextProps = {
   children: React.ReactNode;
 };
 
 type Context = {
-  user: IUser | null | undefined;
+  authToken: string | null | undefined;
   transactions: Tx[];
   loading: boolean;
-  error: any;
+  error: string | false;
   successMsg: boolean;
   loginUser: (userValues: FormValues) => void;
   logout: () => void;
@@ -20,17 +19,17 @@ type Context = {
   createTx: (txValues: Tx) => void;
   editTx: (txValues: Tx) => void;
   deleteTx: (_id: Tx['_id']) => void;
-  getAllTxs: () => void;
+  getAllTxFrom: (month: string) => void;
 };
 
 const AppContext = createContext<Context | null>(null);
 
 export const AppContextProvider = ({ children }: AppContextProps) => {
-  // User changes to either null (on auth failed) or IUser object (on auth success)
-  const [user, setUser] = useState<IUser | null | undefined>(undefined);
+  // Auth token changes to either null (on auth failed) or string (on auth success)
+  const [authToken, setAuthToken] = useState<string | null | undefined>(undefined);
   const [transactions, setTransactions] = useState<Tx[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | false>(false);
   const [successMsg, setSuccessMsg] = useState(false);
 
   useEffect(() => {
@@ -42,33 +41,6 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       setTimeout(() => setSuccessMsg(false), 2000);
     }
   }, [error, successMsg]);
-
-  const loginUser = async (userValues: FormValues) => {
-    setLoading(true);
-    try {
-      const response = await fetch('http://localhost:3000/v1/auth/login', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userValues),
-      });
-      if (!response.ok) {
-        const text = await response.text();
-        throw Error(text);
-      }
-      setLoading(false);
-      const data = await response.json();
-      setUser(data);
-      localStorage.setItem('user', JSON.stringify(data));
-    } catch (error: any) {
-      setLoading(false);
-      // Destructure error message from API response
-      let { message } = JSON.parse(error.message);
-      setError(message);
-    }
-  };
 
   const registerUser = async (userValues: FormValues) => {
     setLoading(true);
@@ -83,16 +55,44 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       });
       if (!response.ok) {
         const text = await response.text();
-        throw Error(text);
+        setLoading(false);
+        setError(text);
       }
-      const data = await response.json();
+      const { token } = await response.json();
+      setAuthToken(token);
+      localStorage.setItem('token', JSON.stringify(token));
       setLoading(false);
-      setUser(data);
-      localStorage.setItem('user', JSON.stringify(data));
     } catch (error: any) {
       setLoading(false);
       // Destructure error message from API response
       let { message } = JSON.parse(error.message);
+      setError(message);
+    }
+  };
+
+  const loginUser = async (userValues: FormValues) => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:3000/v1/auth/login', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userValues),
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        setLoading(false);
+        setError(text);
+      }
+      const { token } = await response.json();
+      setAuthToken(token);
+      localStorage.setItem('token', JSON.stringify(token));
+      setLoading(false);
+    } catch (error: any) {
+      let { message } = JSON.parse(error.message);
+      setLoading(false);
       setError(message);
     }
   };
@@ -115,19 +115,21 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
+          'x-auth-token': `${authToken}`,
         },
         body: JSON.stringify(normalizedTx),
       });
       if (!response.ok) {
         const text = await response.text();
-        throw Error(text);
+        setLoading(false);
+        setError(text);
       }
-      getAllTxs();
       setLoading(false);
       setSuccessMsg(true);
     } catch (error: any) {
       // Destructure error message from API response
       let { message } = JSON.parse(error.message);
+      setLoading(false);
       setError(message);
     }
   };
@@ -139,29 +141,6 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     };
 
     console.log(normalizedTx);
-
-    // setLoading(true);
-    // try {
-    //   const response = await fetch('http://localhost:3000/v1/user/edit-tx', {
-    //     method: 'POST',
-    //     mode: 'cors',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(normalizedTx),
-    //   });
-    //   if (!response.ok) {
-    //     const text = await response.text();
-    //     throw Error(text);
-    //   }
-    //   getAllTxs();
-    //   setLoading(false);
-    //   setSuccessMsg(true);
-    // } catch (error: any) {
-    //   Destructure error message from API response
-    //   let { message } = JSON.parse(error.message);
-    //   setError(message);
-    // }
   };
 
   const deleteTx = (_id: Tx['_id']) => {
@@ -169,28 +148,28 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     console.log(_id);
   };
 
-  const getAllTxs = async () => {
+  const getAllTxFrom = async (month: string) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/v1/user/get-transactions', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:3000/v1/user/get-transactions/${month}`, {
+        method: 'GET',
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
+          'x-auth-token': `${authToken}`,
         },
-        body: JSON.stringify({ id: user!.userId }),
       });
       if (!response.ok) {
         const text = await response.text();
-        throw Error(text);
+        setLoading(false);
+        setError(text);
       }
-      const allTransactions = await response.json();
+      const data = await response.json();
       setLoading(false);
-      setTransactions(allTransactions);
+      setTransactions(data);
     } catch (error: any) {
-      // Destructure error message from API response
-      let { message } = JSON.parse(error.message);
-      setError(message);
+      setLoading(false);
+      setError(error);
     }
   };
 
@@ -200,11 +179,11 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   };
 
   const persistUser = () => {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      setUser(JSON.parse(userJson));
+    const tokenJson = localStorage.getItem('token');
+    if (tokenJson) {
+      setAuthToken(JSON.parse(tokenJson));
     } else {
-      setUser(null);
+      setAuthToken(null);
     }
   };
 
@@ -214,7 +193,20 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
 
   return (
     <AppContext.Provider
-      value={{ user, transactions, loading, error, successMsg, loginUser, logout, registerUser, createTx, editTx, deleteTx, getAllTxs }}
+      value={{
+        authToken,
+        transactions,
+        loading,
+        error,
+        successMsg,
+        loginUser,
+        logout,
+        registerUser,
+        createTx,
+        editTx,
+        deleteTx,
+        getAllTxFrom,
+      }}
     >
       {children}
     </AppContext.Provider>

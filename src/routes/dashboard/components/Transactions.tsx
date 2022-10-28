@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useAppContext } from '../../../context/AppContext';
 
@@ -12,11 +12,11 @@ type TransactionsProps = {
 };
 
 const Transactions = ({ month, openForm }: TransactionsProps) => {
-  const { transactions, getAllTxs, loading, error } = useAppContext();
+  const { transactions, getAllTxFrom, loading, error } = useAppContext();
 
   useEffect(() => {
-    getAllTxs();
-  }, []);
+    getAllTxFrom(month);
+  }, [month]);
 
   if (error) {
     return <>Error...</>;
@@ -34,16 +34,10 @@ const Transactions = ({ month, openForm }: TransactionsProps) => {
 
       <div className="px-1 min-h-[10rem] max-h-[36rem] overflow-y-auto lg:max-h-[30rem] lg:min-h-[30rem]">
         <ul>
-          {/*
-           Filter the transactions depending on the month selected.
-           We slice the date to get the month name (e.g: Oct, Nov, Dec)
-          */}
           {transactions.length > 0 ? (
-            transactions
-              .filter((tx) => tx.date.slice(4, 7) === month.slice(0, 3))
-              .map((tx) => <Transaction openForm={() => openForm(tx)} key={tx._id} txData={tx} />)
+            transactions.map((tx) => <Transaction openForm={() => openForm(tx)} key={tx._id} txData={tx} />)
           ) : (
-            <p className="mt-4 text-zinc-200">There are no transactions yet!</p>
+            <p className="mt-4 text-zinc-200">No transactions yet for this month!</p>
           )}
         </ul>
       </div>

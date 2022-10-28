@@ -6,7 +6,7 @@ import { FormValues } from '../../types';
 import { useAppContext } from '../../context/AppContext';
 
 const Login = () => {
-  const { user, loginUser, error, loading } = useAppContext();
+  const { authToken, loginUser, error, loading } = useAppContext();
   const [userValues, setUserValues] = useState<FormValues>({
     username: '',
     password: '',
@@ -31,7 +31,7 @@ const Login = () => {
   return (
     <div className="px-4 py-16 min-h-screen flex items-center justify-center">
       {/* Redirect if user is logged in */}
-      {user && <Navigate to="/dashboard" replace={true} />}
+      {authToken && <Navigate to="/dashboard" replace={true} />}
       {/* Form submit error msg */}
       {error && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-20">

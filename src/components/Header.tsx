@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 const Header = () => {
-  const { user, logout } = useAppContext();
+  const { authToken, logout } = useAppContext();
 
   return (
     <header className="p-4 absolute top-0 w-full flex items-center justify-between 2xl:container z-10">
@@ -17,7 +17,7 @@ const Header = () => {
         >
           How to use
         </NavLink>
-        {user ? (
+        {authToken ? (
           <>
             <NavLink
               to="/dashboard"

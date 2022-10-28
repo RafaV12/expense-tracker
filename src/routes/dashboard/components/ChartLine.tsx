@@ -1,10 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 export const ChartLine = (): JSX.Element => {
-  const ref = useRef();
-
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [
@@ -18,5 +16,5 @@ export const ChartLine = (): JSX.Element => {
     ],
   };
 
-  return <Line ref={ref} data={data} />;
+  return <Line data={data} />;
 };

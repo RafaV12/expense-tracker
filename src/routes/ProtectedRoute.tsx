@@ -7,11 +7,11 @@ export type ProtectedRouteProps = {
 };
 
 function ProtectedRoute({ redirectTo }: ProtectedRouteProps) {
-  const { user } = useAppContext();
+  const { authToken } = useAppContext();
 
-  if (user) {
+  if (authToken) {
     return <Outlet />;
-  } else if (user === undefined) {
+  } else if (authToken === undefined) {
     return <></>;
   } else return <Navigate to={redirectTo} />;
 }
