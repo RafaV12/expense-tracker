@@ -10,6 +10,7 @@ type AppContextProps = {
 type Context = {
   authToken: string | null | undefined;
   transactions: Tx[];
+  balances: number[];
   loading: boolean;
   error: string | false;
   successMsg: boolean;
@@ -20,6 +21,7 @@ type Context = {
   editTx: (txValues: Tx) => void;
   deleteTx: (_id: Tx['_id']) => void;
   getAllTxFrom: (month: string) => void;
+  getBalances: () => void;
 };
 
 const AppContext = createContext<Context | null>(null);
@@ -28,6 +30,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   // Auth token changes to either null (on auth failed) or string (on auth success)
   const [authToken, setAuthToken] = useState<string | null | undefined>(undefined);
   const [transactions, setTransactions] = useState<Tx[]>([]);
+  const [balances, setBalances] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | false>(false);
   const [successMsg, setSuccessMsg] = useState(false);
@@ -125,6 +128,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
         setError(text);
       }
       setLoading(false);
+      getBalances();
       setSuccessMsg(true);
     } catch (error: any) {
       // Destructure error message from API response
@@ -173,6 +177,31 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     }
   };
 
+  const getBalances = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:3000/v1/user/get-balances`, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': `${authToken}`,
+        },
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        setLoading(false);
+        setError(text);
+      }
+      const data = await response.json();
+      setLoading(false);
+      setBalances(data);
+    } catch (error: any) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   const logout = () => {
     localStorage.clear();
     window.location.href = '/';
@@ -196,6 +225,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       value={{
         authToken,
         transactions,
+        balances,
         loading,
         error,
         successMsg,
@@ -206,6 +236,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
         editTx,
         deleteTx,
         getAllTxFrom,
+        getBalances,
       }}
     >
       {children}

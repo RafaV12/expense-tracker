@@ -44,13 +44,13 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
       <div onClick={closeForm} className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-30 z-20"></div>
       {/* Form submit error msg */}
       {error && (
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-20">
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-40">
           {error}
         </div>
       )}
       {/* Form submit success msg */}
       {successMsg && (
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-20">
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-40">
           Transaction added!
         </div>
       )}

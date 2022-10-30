@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Balance from './components/Balance';
 import Button from '../../components/Button';
@@ -8,8 +8,10 @@ import Transactions from './components/Transactions';
 import AddTxForm from './components/AddTxForm';
 import EditTxForm from './components/EditTxForm';
 import { Tx } from '../../types';
+import { useAppContext } from '../../context/AppContext';
 
 const Dashboard = () => {
+  const { getBalances } = useAppContext();
   const [showAddTxForm, setShowAddTxForm] = useState(false);
   const [showEditTxForm, setShowEditTxForm] = useState(false);
   const [txToEdit, setTxToEdit] = useState<Tx>();
@@ -28,6 +30,10 @@ const Dashboard = () => {
     setTxToEdit(txData);
     setShowEditTxForm(true);
   };
+
+  useEffect(() => {
+    getBalances();
+  }, []);
 
   return (
     <div className="relative px-4 pt-[4.3rem] pb-8 min-h-screen flex flex-col items-center bg-black bg-opacity-60 md:px-14 lg:pt-20">
