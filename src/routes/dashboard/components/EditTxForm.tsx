@@ -27,10 +27,6 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
     });
   };
 
-  const onSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-  };
-
   return (
     <>
       {/* Form mask */}
@@ -48,7 +44,7 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
         </div>
       )}
       <form
-        onSubmit={onSubmit}
+        onSubmit={(e: React.SyntheticEvent) => e.preventDefault()}
         className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-30 md:w-2/4 lg:w-2/6 xl:w-1/4"
       >
         {/* Type of TX selection */}

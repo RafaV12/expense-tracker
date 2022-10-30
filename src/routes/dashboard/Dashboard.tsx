@@ -15,7 +15,6 @@ const Dashboard = () => {
   const [showAddTxForm, setShowAddTxForm] = useState(false);
   const [showEditTxForm, setShowEditTxForm] = useState(false);
   const [txToEdit, setTxToEdit] = useState<Tx>();
-  const [month, setMonth] = useState('January');
 
   const displayAddTxForm = (): void => {
     setShowAddTxForm(!showAddTxForm);
@@ -47,11 +46,11 @@ const Dashboard = () => {
 
           <BalanceHistory />
 
-          <MonthSelection setMonth={setMonth} />
+          <MonthSelection />
         </div>
 
         {/* Second column */}
-        <Transactions month={month} openForm={openEditTxForm} />
+        <Transactions openForm={openEditTxForm} />
       </main>
 
       {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}

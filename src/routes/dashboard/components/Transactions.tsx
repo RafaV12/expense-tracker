@@ -7,12 +7,11 @@ import Spinner from '../../../components/Spinner';
 import { Tx } from '../../../types';
 
 type TransactionsProps = {
-  month: string;
   openForm: (txData: Tx) => void;
 };
 
-const Transactions = ({ month, openForm }: TransactionsProps) => {
-  const { transactions, getAllTxFrom, loading, error } = useAppContext();
+const Transactions = ({ openForm }: TransactionsProps) => {
+  const { month, transactions, getAllTxFrom, loading, error } = useAppContext();
 
   useEffect(() => {
     getAllTxFrom(month);

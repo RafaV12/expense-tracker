@@ -9,11 +9,13 @@ type AppContextProps = {
 
 type Context = {
   authToken: string | null | undefined;
+  month: string;
   transactions: Tx[];
   balances: number[];
   loading: boolean;
   error: string | false;
   successMsg: boolean;
+  setMonthTo: (month: string) => void;
   loginUser: (userValues: FormValues) => void;
   logout: () => void;
   registerUser: (userValues: FormValues) => void;
@@ -29,6 +31,7 @@ const AppContext = createContext<Context | null>(null);
 export const AppContextProvider = ({ children }: AppContextProps) => {
   // Auth token changes to either null (on auth failed) or string (on auth success)
   const [authToken, setAuthToken] = useState<string | null | undefined>(undefined);
+  const [month, setMonth] = useState('January');
   const [transactions, setTransactions] = useState<Tx[]>([]);
   const [balances, setBalances] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -44,6 +47,10 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       setTimeout(() => setSuccessMsg(false), 2000);
     }
   }, [error, successMsg]);
+
+  const setMonthTo = (month: string) => {
+    setMonth(month);
+  };
 
   const registerUser = async (userValues: FormValues) => {
     setLoading(true);
@@ -106,6 +113,12 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       txValues.amount *= -1;
     }
 
+    // Get the month name to set 'month' state after creating the tx
+    function getMonthName() {
+      const date = new Date(txValues.date);
+      return date.toLocaleString('en-US', { month: 'long' });
+    }
+
     const normalizedTx = {
       ...txValues,
       date: new Date(txValues.date).toDateString(),
@@ -129,6 +142,8 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       }
       setLoading(false);
       getBalances();
+      // Set month to whatever the transaction's month is, showing the user the updated transactions array.
+      setMonth(getMonthName());
       setSuccessMsg(true);
     } catch (error: any) {
       // Destructure error message from API response
@@ -147,9 +162,29 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     console.log(normalizedTx);
   };
 
-  const deleteTx = (_id: Tx['_id']) => {
-    console.log('delete Tx');
-    console.log(_id);
+  const deleteTx = async (txId: Tx['_id']) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:3000/v1/user/transaction/${txId}`, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': `${authToken}`,
+        },
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        setLoading(false);
+        setError(text);
+      }
+      getBalances();
+      getAllTxFrom(month);
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      setError(error);
+    }
   };
 
   const getAllTxFrom = async (month: string) => {
@@ -224,11 +259,13 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     <AppContext.Provider
       value={{
         authToken,
+        month,
         transactions,
         balances,
         loading,
         error,
         successMsg,
+        setMonthTo,
         loginUser,
         logout,
         registerUser,

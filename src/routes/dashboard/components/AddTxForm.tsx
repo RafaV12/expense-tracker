@@ -127,7 +127,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
           />
         </div>
 
-        <button disabled={loading ? true : false} className="px-4 py-2 text-white bg-purple-600 rounded-2xl">
+        <button disabled={loading ? true : false} className="px-4 py-2 text-white bg-purple-600 rounded-lg">
           {loading ? `Adding transaction...` : 'Add transaction'}
         </button>
       </form>

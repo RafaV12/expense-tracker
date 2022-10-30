@@ -6,7 +6,7 @@ const Header = () => {
   const { authToken, logout } = useAppContext();
 
   return (
-    <header className="p-4 absolute top-0 w-full flex items-center justify-between 2xl:container z-10">
+    <header className="p-4 absolute top-0 w-full flex items-center justify-between 2xl:container 2xl:left-1/2 2xl:-translate-x-1/2 z-10">
       <Link to={'/'}>
         <img className="w-8 h-9" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Parallel_Finance_logo.png" alt="" />
       </Link>
