@@ -26,12 +26,12 @@ const Transactions = ({ openForm }: TransactionsProps) => {
   }
 
   return (
-    <div className="w-full flex flex-col bg-black md:w-3/4 lg:-mt-4 lg:w-2/5">
+    <div className="p-4 w-full flex flex-col border border-zinc-800 rounded-lg">
       <div className="mb-1 flex items-center justify-between">
         <p className="text-zinc-200 text-lg">{month}</p>
       </div>
 
-      <div className="px-1 min-h-[10rem] max-h-[36rem] overflow-y-auto lg:max-h-[30rem] lg:min-h-[30rem]">
+      <div className="min-h-[10rem] max-h-[36rem] overflow-y-auto lg:max-h-[30rem] lg:min-h-[30rem]">
         <ul>
           {transactions.length > 0 ? (
             transactions.map((tx) => <Transaction openForm={() => openForm(tx)} key={tx._id} txData={tx} />)

@@ -13,7 +13,6 @@ const Balance = () => {
   // Sum all montlhy balances to get the year's balance, then format it
   const balance = Intl.NumberFormat('en-US').format(balances.reduce((partialSum, a) => partialSum + a, 0));
 
-
   function hideBalance(): void {
     setShowBalance(false);
   }
@@ -30,7 +29,7 @@ const Balance = () => {
       </div>
       <p className="mb-1 text-slate-50">Balance</p>
       {showBalance ? (
-        <span className="text-white font-semibold text-4xl">${balance}</span>
+        <p className="w-full text-white font-semibold text-4xl truncate">${balance}</p>
       ) : (
         <span className="text-white font-semibold text-4xl">*******</span>
       )}

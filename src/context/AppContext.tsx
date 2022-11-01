@@ -66,7 +66,8 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       if (!response.ok) {
         const text = await response.text();
         setLoading(false);
-        setError(text);
+        setError(JSON.parse(text).message);
+        return;
       }
       const { token } = await response.json();
       setAuthToken(token);
@@ -94,16 +95,16 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       if (!response.ok) {
         const text = await response.text();
         setLoading(false);
-        setError(text);
+        setError(JSON.parse(text).message);
+        return;
       }
       const { token } = await response.json();
       setAuthToken(token);
       localStorage.setItem('token', JSON.stringify(token));
       setLoading(false);
     } catch (error: any) {
-      let { message } = JSON.parse(error.message);
       setLoading(false);
-      setError(message);
+      setError(error);
     }
   };
 
@@ -138,7 +139,8 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       if (!response.ok) {
         const text = await response.text();
         setLoading(false);
-        setError(text);
+        setError(JSON.parse(text).message);
+        return;
       }
       setLoading(false);
       getBalances();
@@ -146,10 +148,8 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       setMonth(getMonthName());
       setSuccessMsg(true);
     } catch (error: any) {
-      // Destructure error message from API response
-      let { message } = JSON.parse(error.message);
       setLoading(false);
-      setError(message);
+      setError(error);
     }
   };
 
@@ -176,7 +176,8 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       if (!response.ok) {
         const text = await response.text();
         setLoading(false);
-        setError(text);
+        setError(JSON.parse(text).message);
+        return;
       }
       getBalances();
       getAllTxFrom(month);

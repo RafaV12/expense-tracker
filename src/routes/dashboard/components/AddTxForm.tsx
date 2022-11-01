@@ -28,7 +28,17 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    // Check if description contains any letter, so it's not empty.
+    if (!txValues.description.match(/[a-zA-Z]/g)) {
+      alert('You need to input a description!');
+      return;
+    } else if (txValues.amount === 0 || txValues.amount > 1000000000) {
+      alert('Amount can not be 0 or have more than 10 digits!');
+      return;
+    }
+
     createTx(txValues);
+    
     setTxValues({
       _id: '',
       type: '',
@@ -104,6 +114,8 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
             value={txValues.description}
             placeholder="Enter description"
             className="pl-2 py-2 mt-2 w-full text-black rounded-md outline-none"
+            maxLength={34}
+            minLength={1}
             type="text"
             name="description"
             required

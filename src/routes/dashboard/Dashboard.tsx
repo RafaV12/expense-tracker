@@ -50,7 +50,9 @@ const Dashboard = () => {
         </div>
 
         {/* Second column */}
-        <Transactions openForm={openEditTxForm} />
+        <div className='w-full flex flex-col items-center md:w-3/4 lg:-mt-4 lg:w-2/5'>
+          <Transactions openForm={openEditTxForm} />
+        </div>
       </main>
 
       {showAddTxForm && <AddTxForm closeForm={hideAddTxForm} />}
