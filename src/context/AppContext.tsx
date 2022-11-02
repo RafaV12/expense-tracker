@@ -146,6 +146,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       getBalances();
       // Set month to whatever the transaction's month is, showing the user the updated transactions array.
       setMonth(getMonthName());
+      getAllTxFrom(month);
       setSuccessMsg(true);
     } catch (error: any) {
       setLoading(false);
@@ -159,7 +160,31 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
       date: new Date(txValues.date).toDateString(),
     };
 
-    console.log(normalizedTx);
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:3000/v1/user/transaction/${txValues._id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': `${authToken}`,
+        },
+        body: JSON.stringify(normalizedTx),
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        setLoading(false);
+        setError(JSON.parse(text).message);
+        return;
+      }
+      getBalances();
+      getAllTxFrom(month);
+      setSuccessMsg(true);
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      setError(error);
+    }
   };
 
   const deleteTx = async (txId: Tx['_id']) => {

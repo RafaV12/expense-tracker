@@ -26,9 +26,9 @@ const Transactions = ({ openForm }: TransactionsProps) => {
   }
 
   return (
-    <div className="p-4 w-full flex flex-col border border-zinc-800 rounded-lg">
+    <div className="py-4 w-full flex flex-col border border-zinc-800 rounded-lg">
       <div className="mb-1 flex items-center justify-between">
-        <p className="text-zinc-200 text-lg">{month}</p>
+        <p className="ml-4 text-zinc-200 text-lg">{month}</p>
       </div>
 
       <div className="min-h-[10rem] max-h-[36rem] overflow-y-auto lg:max-h-[30rem] lg:min-h-[30rem]">
@@ -36,7 +36,7 @@ const Transactions = ({ openForm }: TransactionsProps) => {
           {transactions.length > 0 ? (
             transactions.map((tx) => <Transaction openForm={() => openForm(tx)} key={tx._id} txData={tx} />)
           ) : (
-            <p className="mt-4 text-zinc-200">No transactions yet for this month!</p>
+            <p className="mt-4 ml-4 text-zinc-200">No transactions yet for this month!</p>
           )}
         </ul>
       </div>

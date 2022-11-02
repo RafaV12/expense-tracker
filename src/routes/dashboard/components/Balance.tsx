@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { useAppContext } from '../../../context/AppContext';
-import { Tx } from '../../../types';
 
 import EditIcon from '../../../components/Icons/EditIcon';
-import EyeOffIcon from '../../../components/Icons/EyeOffIcon';
 import EyeIcon from '../../../components/Icons/EyeIcon';
+import EyeOffIcon from '../../../components/Icons/EyeOffIcon';
 
 const Balance = () => {
   const { balances } = useAppContext();

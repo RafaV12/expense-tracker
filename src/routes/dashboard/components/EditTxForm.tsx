@@ -29,7 +29,7 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
 
   return (
     <>
-      {/* Form mask */}
+      {/* Container mask */}
       <div onClick={closeForm} className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-30 z-20"></div>
       {/* Form submit error msg */}
       {error && (
@@ -40,13 +40,10 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
       {/* Form submit success msg */}
       {successMsg && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-40">
-          Transaction added!
+          Transaction edited!
         </div>
       )}
-      <form
-        onSubmit={(e: React.SyntheticEvent) => e.preventDefault()}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-30 md:w-2/4 lg:w-2/6 xl:w-1/4"
-      >
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-30 md:w-2/4 lg:w-2/6 xl:w-1/4">
         {/* Type of TX selection */}
         <div className="mb-4 flex flex-col">
           <label className="text-zinc-200" htmlFor="">
@@ -118,7 +115,10 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
 
         <div className="w-full flex items-center justify-center">
           <button
-            onClick={() => deleteTx(txValues._id)}
+            onClick={() => {
+              deleteTx(txValues._id);
+              closeForm();
+            }}
             disabled={loading ? true : false}
             className="px-4 py-2 mr-3 text-white bg-red-600 rounded-2xl"
           >
@@ -133,7 +133,7 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
             Edit TX
           </button>
         </div>
-      </form>
+      </div>
     </>
   );
 };
