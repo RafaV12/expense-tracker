@@ -55,7 +55,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   const registerUser = async (userValues: FormValues) => {
     setLoading(true);
     try {
-      const response = await fetch('https://expense-api-v1.onrender.com/v1/auth/register', {
+      const response = await fetch('http://localhost:3000/v1/auth/register', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -84,7 +84,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   const loginUser = async (userValues: FormValues) => {
     setLoading(true);
     try {
-      const response = await fetch('https://expense-api-v1.onrender.com/v1/auth/login', {
+      const response = await fetch('http://localhost:3000/v1/auth/login', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -127,7 +127,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
 
     setLoading(true);
     try {
-      const response = await fetch('https://expense-api-v1.onrender.com/v1/user/create-tx', {
+      const response = await fetch('http://localhost:3000/v1/user/create-tx', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -162,7 +162,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
 
     setLoading(true);
     try {
-      const response = await fetch(`https://expense-api-v1.onrender.com/v1/user/transaction/${txValues._id}`, {
+      const response = await fetch(`http://localhost:3000/v1/user/transaction/${txValues._id}`, {
         method: 'PATCH',
         mode: 'cors',
         headers: {
@@ -190,7 +190,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   const deleteTx = async (txId: Tx['_id']) => {
     setLoading(true);
     try {
-      const response = await fetch(`https://expense-api-v1.onrender.com/v1/user/transaction/${txId}`, {
+      const response = await fetch(`http://localhost:3000/v1/user/transaction/${txId}`, {
         method: 'DELETE',
         mode: 'cors',
         headers: {
@@ -216,7 +216,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   const getAllTxFrom = async (month: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`https://expense-api-v1.onrender.com/v1/user/get-transactions/${month}`, {
+      const response = await fetch(`http://localhost:3000/v1/user/get-transactions/${month}`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -241,7 +241,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
   const getBalances = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`https://expense-api-v1.onrender.com/v1/user/get-balances`, {
+      const response = await fetch(`http://localhost:3000/v1/user/get-balances`, {
         method: 'GET',
         mode: 'cors',
         headers: {
