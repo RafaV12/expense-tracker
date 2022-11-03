@@ -6,7 +6,7 @@ const Landing = () => {
     <section className="h-screen flex flex-col items-center justify-center lg:px-14 lg:flex-row lg:justify-between xl:px-20">
       {/* First column */}
       <div className="-mt-10 w-3/4 flex flex-col lg:w-2/4 xl:w-2/5">
-        <h1 className="mb-4 text-white font-extrabold text-4xl">Cash flow made easy.</h1>
+        <h1 className="mb-4 text-white font-extrabold text-4xl">Income and Expense tracking made easy.</h1>
         <p className="mb-4 text-zinc-200">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni corrupti possimus, ex iusto dolore velit.
         </p>

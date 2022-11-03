@@ -33,7 +33,7 @@ const AddTxForm = ({ closeForm }: AddTxFormProps) => {
       alert('You need to input a description!');
       return;
     } else if (txValues.amount === 0 || txValues.amount > 1000000000) {
-      alert('Amount can not be 0 or have more than 10 digits!');
+      alert('Amount can not be 0 or bigger than 1 billion!');
       return;
     }
 

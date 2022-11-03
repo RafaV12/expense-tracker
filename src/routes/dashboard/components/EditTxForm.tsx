@@ -120,7 +120,7 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
               closeForm();
             }}
             disabled={loading ? true : false}
-            className="px-4 py-2 mr-3 text-white bg-red-600 rounded-2xl"
+            className="w-2/5 py-2 mr-3 text-white bg-red-600 rounded-lg transition ease-in-out 1s hover:bg-red-800 hover:text-zinc-200"
           >
             Delete TX
           </button>
@@ -128,7 +128,7 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
           <button
             onClick={() => editTx(txValues)}
             disabled={loading ? true : false}
-            className="px-6 py-2 text-white bg-purple-600 rounded-2xl"
+            className="w-2/5 py-2 text-white bg-purple-600 rounded-lg transition ease-in-out 1s hover:bg-purple-800 hover:text-zinc-200"
           >
             Edit TX
           </button>

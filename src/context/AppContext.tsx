@@ -163,7 +163,7 @@ export const AppContextProvider = ({ children }: AppContextProps) => {
     setLoading(true);
     try {
       const response = await fetch(`http://localhost:3000/v1/user/transaction/${txValues._id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
