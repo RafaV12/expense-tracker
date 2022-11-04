@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useAppContext } from '../context/AppContext';
+
+import { useAppContext } from '@/context/AppContext';
 
 export type ProtectedRouteProps = {
   redirectTo: string;

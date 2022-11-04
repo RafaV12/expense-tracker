@@ -2,14 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { AppContextProvider } from './context/AppContext';
-
-import Header from './components/Header';
-import ProtectedRoute from './routes/ProtectedRoute';
-import Dashboard from './routes/dashboard/Dashboard';
-import HowToUse from './routes/how-to-use/HowToUse';
-import Home from './routes/home/Home';
-import Login from './routes/login/Login';
-import Register from './routes/register/Register';
+import { Header } from './components';
+import { Dashboard, ProtectedRoute, HowToUse, Home, Login, Register } from './routes';
 
 const App = () => {
   return (

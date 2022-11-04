@@ -1,6 +1,6 @@
 import { NavLink, Link } from 'react-router-dom';
 
-import { useAppContext } from '../context/AppContext';
+import { useAppContext } from '@/context/AppContext';
 
 const Header = () => {
   const { authToken, logout } = useAppContext();

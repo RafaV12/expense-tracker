@@ -10,7 +10,7 @@ const HowToUse = () => {
     <div className="min-h-screen text-white flex flex-col items-center">
       <div className="pt-20 pb-12 px-4 container flex flex-col items-center md:w-11/12 lg:flex-row lg:justify-between">
         {/* First column */}
-        <div className="w-full flex flex-col items-center lg:ml-7 lg:w-2/5">
+        <div className="w-full flex flex-col items-center lg:ml-7 lg:w-2/5 lg:-mt-3">
           <div className="flex flex-col">
             <h2 className="mb-2 text-lg">How to add a transaction</h2>
             <p className="text-zinc-300">

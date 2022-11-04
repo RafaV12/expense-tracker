@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import Balance from './components/Balance';
-import Button from '../../components/Button';
-import BalanceHistory from './components/BalanceHistory';
-import MonthSelection from './components/MonthSelection';
-import Transactions from './components/Transactions';
-import AddTxForm from './components/AddTxForm';
-import EditTxForm from './components/EditTxForm';
-import { Tx } from '../../types';
-import { useAppContext } from '../../context/AppContext';
+import Button from '@/components/Button';
+import { Tx } from '@/types';
+import { useAppContext } from '@/context/AppContext';
+
+import { Balance, BalanceHistory, MonthSelection, Transactions, AddTxForm, EditTxForm } from './components';
+
 
 const Dashboard = () => {
   const { getBalances } = useAppContext();
@@ -50,7 +47,7 @@ const Dashboard = () => {
         </div>
 
         {/* Second column */}
-        <div className='w-full flex flex-col items-center md:w-3/4 lg:-mt-4 lg:w-2/5'>
+        <div className="w-full flex flex-col items-center md:w-3/4 lg:-mt-4 lg:w-2/5">
           <Transactions openForm={openEditTxForm} />
         </div>
       </main>

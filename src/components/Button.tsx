@@ -1,7 +1,6 @@
 import React from 'react';
-import ArrowDownIcon from './Icons/ArrowDownIcon';
-import ArrowUpIcon from './Icons/ArrowUpIcon';
-import PlusIcon from './Icons/PlusIcon';
+
+import { PlusIcon } from './Icons';
 
 type ButtonProps = {
   text: string;
