@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 
-import { Tx } from '../../../types';
+import { Tx } from '../../../utils/types';
+
 import { useAppContext } from '../../../context/AppContext';
 
-type EditTxFormProps = {
+type AddTxFormProps = {
   closeForm: () => void;
-  txData?: Tx;
 };
 
-const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
-  const { editTx, deleteTx, loading, error, successMsg } = useAppContext();
+const AddTxForm = ({ closeForm }: AddTxFormProps) => {
+  const { createTx, loading, error, successMsg } = useAppContext();
+
   const [txValues, setTxValues] = useState<Tx>({
-    _id: txData!._id,
-    type: txData!.type,
-    description: txData!.description,
-    // Change our normalized date format to the defaultHTML input type=date format
-    date: new Date(txData!.date).toISOString().slice(0, 10),
-    // Set negative numbers to positive (default - we don't want the user to put negatives in the HTML input)
-    amount: txData!.amount < 0 ? txData!.amount * -1 : txData!.amount,
+    _id: '',
+    type: '',
+    date: '',
+    description: '',
+    amount: 0,
   });
 
   const onChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLSelectElement>): void => {
@@ -27,9 +26,31 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
     });
   };
 
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    // Check if description contains any letter, so it's not empty.
+    if (!txValues.description.match(/[a-zA-Z]/g)) {
+      alert('You need to input a description!');
+      return;
+    } else if (txValues.amount === 0 || txValues.amount > 1000000000) {
+      alert('Amount can not be 0 or bigger than 1 billion!');
+      return;
+    }
+
+    createTx(txValues);
+
+    setTxValues({
+      _id: '',
+      type: '',
+      date: '',
+      description: '',
+      amount: 0,
+    });
+  };
+
   return (
     <>
-      {/* Container mask */}
+      {/* Form mask */}
       <div onClick={closeForm} className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-30 z-20"></div>
       {/* Form submit error msg */}
       {error && (
@@ -40,10 +61,13 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
       {/* Form submit success msg */}
       {successMsg && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-7 border flex flex-col justify-center items-center text-center text-white bg-zinc-800 rounded-lg z-40">
-          Transaction edited!
+          Transaction added!
         </div>
       )}
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-30 md:w-2/4 lg:w-2/6 xl:w-1/4">
+      <form
+        onSubmit={onSubmit}
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 pt-6 pb-12 w-4/5 flex flex-col bg-zinc-800 rounded-lg z-30 md:w-2/4 lg:w-2/6 xl:w-1/4"
+      >
         {/* Type of TX selection */}
         <div className="mb-4 flex flex-col">
           <label className="text-zinc-200" htmlFor="">
@@ -76,6 +100,8 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
             className="px-2 py-2 mt-2 w-full text-black rounded-md outline-none"
             type="date"
             name="date"
+            max={new Date().getFullYear().toString() + '-12-31'}
+            min={new Date().getFullYear().toString() + '-01-01'}
             required
           ></input>
         </div>
@@ -90,6 +116,8 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
             value={txValues.description}
             placeholder="Enter description"
             className="pl-2 py-2 mt-2 w-full text-black rounded-md outline-none"
+            maxLength={34}
+            minLength={1}
             type="text"
             name="description"
             required
@@ -113,29 +141,13 @@ const EditTxForm = ({ closeForm, txData }: EditTxFormProps) => {
           />
         </div>
 
-        <div className="w-full flex items-center justify-center">
-          <button
-            onClick={() => {
-              deleteTx(txValues._id);
-              closeForm();
-            }}
-            disabled={loading ? true : false}
-            className="w-2/5 py-2 mr-3 text-white bg-red-600 rounded-lg transition ease-in-out 1s hover:bg-red-800 hover:text-zinc-200"
-          >
-            Delete TX
-          </button>
-
-          <button
-            onClick={() => editTx(txValues)}
-            disabled={loading ? true : false}
-            className="w-2/5 py-2 text-white bg-purple-600 rounded-lg transition ease-in-out 1s hover:bg-purple-800 hover:text-zinc-200"
-          >
-            Edit TX
-          </button>
-        </div>
-      </div>
+        <button disabled={loading ? true : false} className="px-4 py-2 text-white bg-purple-600 rounded-lg">
+          {loading ? `Adding transaction...` : 'Add transaction'}
+        </button>
+      </form>
     </>
   );
 };
 
-export default EditTxForm;
+export default AddTxForm;
+

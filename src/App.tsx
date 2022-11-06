@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { AppContextProvider } from './context/AppContext';
 import { Header } from './components';
-import { Dashboard, ProtectedRoute, HowToUse, Home, Login, Register } from './routes';
+import { Dashboard, ProtectedRoute, HowToUse, Home, Login, Register } from './pages';
 
 const App = () => {
   return (
@@ -33,3 +33,4 @@ const App = () => {
 };
 
 export default App;
+

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { FormValues } from '@/types/index';
-import { Tx } from '@/types/index';
+import { FormValues } from '@/utils/types';
+import { Tx } from '@/utils/types';
 
 type AppContextProps = {
   children: React.ReactNode;
@@ -314,3 +314,4 @@ export const useAppContext = () => {
 
   return context;
 };
+

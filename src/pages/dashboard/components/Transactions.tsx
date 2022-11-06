@@ -4,7 +4,7 @@ import { useAppContext } from '../../../context/AppContext';
 
 import Transaction from './Transaction';
 import Spinner from '../../../components/Spinner';
-import { Tx } from '../../../types';
+import { Tx } from '../../../utils/types';
 
 type TransactionsProps = {
   openForm: (txData: Tx) => void;
@@ -45,3 +45,4 @@ const Transactions = ({ openForm }: TransactionsProps) => {
 };
 
 export default Transactions;
+

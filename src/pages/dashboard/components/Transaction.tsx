@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tx } from '../../../types';
+import { Tx } from '../../../utils/types';
 
 type TransactionProps = {
   txData: Tx;
@@ -27,3 +27,4 @@ const Transaction = ({ openForm, txData }: TransactionProps) => {
 };
 
 export default Transaction;
+

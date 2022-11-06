@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
-import { FormValues } from '@/types';
+import { FormValues } from '@/utils/types';
 import { useAppContext } from '@/context/AppContext';
 
 const Login = () => {
@@ -87,3 +87,4 @@ const Login = () => {
 };
 
 export default Login;
+

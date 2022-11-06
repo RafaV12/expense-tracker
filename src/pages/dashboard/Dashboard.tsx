@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@/components/Button';
-import { Tx } from '@/types';
+import { Tx } from '@/utils/types';
 import { useAppContext } from '@/context/AppContext';
 
 import { Balance, BalanceHistory, MonthSelection, Transactions, AddTxForm, EditTxForm } from './components';
-
 
 const Dashboard = () => {
   const { getBalances } = useAppContext();
@@ -59,3 +58,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
